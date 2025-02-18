@@ -1,0 +1,11 @@
+Contact: mailto:your-email@example.com
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://example.com/pgp-key.txt
+Preferred-Languages: en
+Canonical: https://example.com/.well-known/security.txt
+Policy: https://example.com/security-policy
+Hiring: https://example.com/security-jobs
+
+# This is a client-side steganography tool.
+# All operations are performed in the browser.
+# No data is transmitted to any server.

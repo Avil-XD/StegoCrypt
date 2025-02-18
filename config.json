@@ -1,0 +1,63 @@
+{
+    "name": "steganography-tool",
+    "version": "1.0.0",
+    "description": "Professional browser-based steganography tool",
+    "author": {
+        "name": "Your Name",
+        "email": "your.email@example.com",
+        "url": "https://github.com/yourusername"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/steganography-tool"
+    },
+    "dependencies": {
+        "crypto-js": "^4.1.1"
+    },
+    "requirements": {
+        "browsers": {
+            "chrome": ">=80",
+            "firefox": ">=75",
+            "safari": ">=13",
+            "edge": ">=80"
+        },
+        "screen": {
+            "minWidth": 320,
+            "recommended": 768
+        }
+    },
+    "features": {
+        "encryption": {
+            "methods": ["AES-256", "No encryption"],
+            "default": "AES-256"
+        },
+        "imageFormats": {
+            "input": ["png", "jpg", "jpeg", "bmp"],
+            "output": ["png", "jpeg"]
+        },
+        "maxFileSize": 10485760,
+        "maxMessageLength": 10000
+    },
+    "deployment": {
+        "type": "static",
+        "recommended": "GitHub Pages",
+        "alternatives": [
+            "Netlify",
+            "Vercel",
+            "Any static file server"
+        ]
+    },
+    "meta": {
+        "keywords": [
+            "steganography",
+            "image steganography",
+            "message hiding",
+            "encryption",
+            "privacy",
+            "security"
+        ],
+        "category": "Security Tools",
+        "language": "en",
+        "status": "stable"
+    }
+}

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /.git/
+
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Steganography Tool
+# This is a client-side tool, no server-side processing is required
+# All operations are performed in the browser

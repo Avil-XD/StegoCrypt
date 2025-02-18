@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional steganography tool for hiding messages in images">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="author" content="Your Name">
+    <meta name="keywords" content="steganography, image steganography, message hiding, encryption">
+    
+    <title>Professional Steganography Tool</title>
+    
+    <!-- Manifest and icons -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-32.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 7h2v6h-2zm0 4h6v2h-6z"/>
+                </svg>
+                <span>Steganography Tool</span>
+            </div>
+            <div class="actions">
+                <button id="helpBtn" class="icon-btn" aria-label="Help">
+                    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12" y2="17"/>
+                    </svg>
+                </button>
+                <button id="themeSwitch" class="icon-btn" aria-label="Toggle theme">
+                    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="workspace">
+            <aside class="sidebar">
+                <nav class="workspace-nav">
+                    <button class="nav-item active" data-tab="encode">
+                        <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Encode Message</span>
+                    </button>
+                    <button class="nav-item" data-tab="decode">
+                        <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            <path d="M9 12l2 2 4-4"/>
+                        </svg>
+                        <span>Decode Message</span>
+                    </button>
+                </nav>
+
+                <div class="quick-options">
+                    <h3>Options</h3>
+                    <div class="option-group">
+                        <label class="switch-label">
+                            <span>Enable Encryption</span>
+                            <div class="switch">
+                                <input type="checkbox" id="encryptionToggle" checked>
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                        <label class="switch-label">
+                            <span>High Quality Output</span>
+                            <div class="switch">
+                                <input type="checkbox" id="qualityToggle" checked>
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="content-area">
+                <div id="encode-panel" class="panel active">
+                    <section class="upload-section">
+                        <div class="upload-area" id="dropZone">
+                            <svg width="48" height="48" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                            <h3>Drop image here</h3>
+                            <p>or click to select</p>
+                            <input type="file" id="fileInput" accept="image/*" hidden>
+                        </div>
+
+                        <div id="imageInfo" class="info-panel" hidden>
+                            <div class="info-row">
+                                <span>File Size:</span>
+                                <span id="imageSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Dimensions:</span>
+                                <span id="imageDimensions">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Message Capacity:</span>
+                                <span id="imageCapacity">-</span>
+                            </div>
+                        </div>
+                        
+                        <div id="imagePreview" class="image-preview" hidden>
+                            <h4>Image Preview</h4>
+                            <div class="preview-container">
+                                <img src="" alt="Preview" id="previewImg">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="message-section">
+                        <div class="input-group">
+                            <label for="messageInput">Secret Message</label>
+                            <div class="textarea-wrapper">
+                                <textarea id="messageInput" placeholder="Enter your message here..." rows="4"></textarea>
+                                <span class="char-counter">0/10000</span>
+                            </div>
+                        </div>
+
+                        <div id="encryptionSection">
+                            <div class="input-group">
+                                <label for="keyInput">Encryption Key</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="keyInput" placeholder="Enter your encryption key">
+                                    <button class="toggle-visibility" aria-label="Toggle password visibility">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="outputFormat">Output Format</label>
+                                <select id="outputFormat">
+                                    <option value="png">PNG (Lossless)</option>
+                                    <option value="jpeg">JPEG (Smaller size)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer class="panel-footer">
+                        <button id="encodeBtn" class="primary-button" disabled>
+                            Hide Message
+                            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M5 12h14"/>
+                                <path d="M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </footer>
+
+                    <div id="downloadSection" class="download-options" hidden>
+                        <h3>Download Options</h3>
+                        <div class="download-grid">
+                            <button class="download-btn" data-quality="original">
+                                <span>Original Quality</span>
+                                <small>Best quality, larger size</small>
+                            </button>
+                            <button class="download-btn" data-quality="compressed">
+                                <span>Compressed</span>
+                                <small>Smaller file size</small>
+                            </button>
+                            <button class="download-btn" data-quality="optimized">
+                                <span>Optimized</span>
+                                <small>Balanced quality and size</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="decode-panel" class="panel">
+                    <section class="upload-section">
+                        <div class="upload-area" id="decodeDropZone">
+                            <svg width="48" height="48" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                            <h3>Drop encoded image</h3>
+                            <p>or click to select</p>
+                            <input type="file" id="decodeFileInput" accept="image/*" hidden>
+                        </div>
+                    </section>
+
+                    <section class="decode-section">
+                        <div class="input-group">
+                            <label for="decodeKeyInput">Decryption Key</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="decodeKeyInput" placeholder="Enter the decryption key">
+                                <button class="toggle-visibility" aria-label="Toggle password visibility">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="message-output" hidden>
+                            <h4>Hidden Message:</h4>
+                            <div class="message-content"></div>
+                        </div>
+                    </section>
+
+                    <footer class="panel-footer">
+                        <button id="decodeBtn" class="primary-button" disabled>
+                            Reveal Message
+                            <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+    
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal" hidden>
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>How to Use</h2>
+                <button class="close-btn" aria-label="Close help">×</button>
+            </header>
+            <div class="modal-body">
+                <h3>Encoding a Message</h3>
+                <ol>
+                    <li>Upload or drag & drop an image</li>
+                    <li>Enter your secret message</li>
+                    <li>Optionally enable encryption and enter a key</li>
+                    <li>Click "Hide Message"</li>
+                    <li>Download the encoded image</li>
+                </ol>
+
+                <h3>Decoding a Message</h3>
+                <ol>
+                    <li>Upload the encoded image</li>
+                    <li>If encryption was used, enter the key</li>
+                    <li>Click "Reveal Message"</li>
+                </ol>
+
+                <p class="note">Note: The security of your message depends on keeping your encryption key private.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="steg.js" defer></script>
+</body>
+</html>
