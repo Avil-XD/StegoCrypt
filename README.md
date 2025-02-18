@@ -1,106 +1,96 @@
-# Steganography Tool
+# StegoCrypt 🔒
 
-A professional, browser-based steganography tool for hiding secret messages within images. Built with pure JavaScript and modern web technologies.
+A modern, secure steganography tool for hiding messages in images. Built with clean, vanilla JavaScript and focused on user privacy.
 
-## Features
+<div align="center">
 
-- 🔒 Hide messages within images using LSB steganography
-- 🔐 Optional AES-256 encryption for enhanced security
-- 📊 Multiple output formats (PNG, JPEG, WebP)
-- 🎨 Quality control and compression options
-- 🌓 Dark/Light theme support
-- 📱 Responsive design for all devices
-- 🚫 No server requirements - runs entirely in the browser
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Security](https://img.shields.io/badge/security-AES--256-orange.svg)
 
-## Usage
+</div>
 
-1. **Encoding a Message**
-   - Upload or drag & drop an image
-   - Enter your secret message
-   - (Optional) Enable encryption and enter a key
-   - Click "Hide Message"
-   - Download the encoded image
+## ✨ Features
 
-2. **Decoding a Message**
-   - Upload the encoded image
-   - Enter the encryption key (if used)
-   - Click "Reveal Message"
-   - View the hidden message
+- **Secure Message Hiding** - Uses LSB steganography with AES-256 encryption
+- **Multiple Output Options** - Choose between quality and file size
+- **Client-Side Only** - Your data never leaves your browser
+- **Modern UI/UX** - Clean interface with dark mode support
+- **No Dependencies** - Pure JavaScript implementation
+- **Mobile Responsive** - Works on all devices
 
-## Technical Details
+## 🚀 Try It Now
 
-### Steganography Method
-- Uses Least Significant Bit (LSB) encoding
-- Supports up to 3 bits per pixel
-- Automatic capacity calculation
-- End-of-message detection
+Visit [StegoCrypt Live Demo](https://avil-xd.github.io/StegoCrypt) to try it instantly in your browser.
 
-### Security Features
-- AES-256 encryption support
-- Client-side only processing
-- No data transmission
-- Secure key handling
+## 🔍 How It Works
 
-### Supported Formats
-- Input: PNG, JPEG, BMP
-- Output: PNG (lossless), JPEG (compressed)
-- Quality control for compressed formats
+1. **Select an Image** - Upload or drag & drop any PNG/JPEG
+2. **Enter Message** - Type your secret message
+3. **Optional Encryption** - Add a password for extra security
+4. **Download** - Get your image with hidden message
 
-## Local Development
+The tool uses LSB (Least Significant Bit) steganography to hide your message in the image's pixel data. When encryption is enabled, messages are secured with AES-256 before embedding.
+
+## 🛡️ Security
+
+- Client-side encryption using AES-256
+- No server communication - everything happens in your browser
+- Message capacity automatically calculated
+- Optional password protection
+
+## 💻 Local Development
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Avil-XD/StegoCrypt.git
    ```
 
-2. Navigate to the project directory:
+2. Start a local server:
    ```bash
-   cd stego-tool
-   ```
-
-3. Start a local server:
-   ```bash
+   # Using Python
    python -m http.server 8000
-   ```
-   or use any other local server of your choice.
-
-4. Open in browser:
-   ```
-   http://localhost:8000
+   # Or using Node.js
+   npx serve
    ```
 
-## Browser Support
+3. Open `http://localhost:8000` in your browser
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+## 🤝 Contributing
 
-## Dependencies
+Contributions are welcome! Please check our [Contributing Guidelines](docs/CONTRIBUTING.md) for details on how to submit pull requests, report issues, and contribute to the project.
 
-- CryptoJS (v4.1.1) - For AES encryption
+## 📄 License
 
-## Contributing
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+## ⚡ Performance
 
-## License
+- Fast processing even with large images
+- Automatic image optimization
+- Progressive loading
+- Responsive UI with instant feedback
 
-MIT License - feel free to use this project for personal or commercial purposes.
+## 🔧 Browser Support
 
-## Security Notice
+- Chrome (Latest)
+- Firefox (Latest)
+- Safari (Latest)
+- Edge (Latest)
 
-While this tool provides basic steganography and encryption capabilities, it's important to note that:
-- The security of the hidden message depends on the encryption key used
-- The tool doesn't guarantee protection against statistical analysis
-- For maximum security, use secure channels to share encryption keys
+## 🌟 Features Coming Soon
 
-## Acknowledgments
+- [x] Dark/Light theme support
+- [x] Drag and drop interface
+- [x] Mobile responsive design
+- [ ] Multiple file processing
+- [ ] Custom steganography algorithms
+- [ ] Image preprocessing options
 
-- Built with modern web technologies
-- Uses the CryptoJS library for encryption
-- Inspired by various steganography techniques and tools
+---
+
+<div align="center">
+
+Made with ❤️ by [Avil](https://github.com/Avil-XD)
+
+</div>
