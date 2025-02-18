@@ -683,8 +683,14 @@ textarea:focus, input:focus, select:focus {
 }
 
 /* Hidden Elements */
-[hidden] {
+[hidden],
+#encryptionSection:not(.visible) {
     display: none !important;
+}
+
+/* Initially hide encryption section */
+#encryptionSection {
+    display: none;
 }
 
 /* Password Input Wrapper */

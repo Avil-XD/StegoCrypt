@@ -161,13 +161,28 @@ function setupEventListeners() {
     });
 
     // Toggle listeners
+    // Initial encryption section state
+    const encryptionSection = document.getElementById('encryptionSection');
+    if (encryptionSection) {
+        encryptionSection.style.display = 'none';
+    }
+
+    // Encryption toggle handler
     elements.encryptionToggle?.addEventListener('change', e => {
         const encryptionSection = document.getElementById('encryptionSection');
         if (encryptionSection) {
             const keyInputs = document.querySelectorAll('#keyInput, #decodeKeyInput');
-            keyInputs.forEach(input => input.required = e.target.checked);
-            if (!e.target.checked) {
-                keyInputs.forEach(input => input.value = '');
+            if (e.target.checked) {
+                encryptionSection.style.display = 'block';
+                encryptionSection.classList.add('visible');
+                keyInputs.forEach(input => input.required = true);
+            } else {
+                encryptionSection.style.display = 'none';
+                encryptionSection.classList.remove('visible');
+                keyInputs.forEach(input => {
+                    input.required = false;
+                    input.value = '';
+                });
             }
         }
     });
