@@ -50,7 +50,7 @@ A professional, browser-based steganography tool for hiding secret messages with
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/stego-tool.git
+   git clone https://github.com/Avil-XD/StegoCrypt.git
    ```
 
 2. Navigate to the project directory:
