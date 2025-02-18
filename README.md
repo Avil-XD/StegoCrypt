@@ -10,6 +10,13 @@ A modern, secure steganography tool for hiding messages in images. Built with cl
 
 </div>
 
+
+
+## **🛸How to run?**
+
+Visit 👉 [StegoCrypt Live](https://avil-xd.github.io/StegoCrypt) to try it instantly in your browser.
+
+
 ## ✨ Features
 
 - **Secure Message Hiding** - Uses LSB steganography with AES-256 encryption
@@ -19,9 +26,6 @@ A modern, secure steganography tool for hiding messages in images. Built with cl
 - **No Dependencies** - Pure JavaScript implementation
 - **Mobile Responsive** - Works on all devices
 
-## 🚀 Try It Now
-
-Visit [StegoCrypt Live Demo](https://avil-xd.github.io/StegoCrypt) to try it instantly in your browser.
 
 ## 🔍 How It Works
 
