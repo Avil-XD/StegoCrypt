@@ -308,8 +308,8 @@ function loadImage(file, isDecode) {
         const img = new Image();
         img.onload = () => {
             setupCanvas(img);
-            updateImageInfo(file, img);
-            updateImagePreview(e.target.result);
+            updateImageInfo(file, img, isDecode);
+            updateImagePreview(e.target.result, isDecode);
             if (isDecode) {
                 elements.decodeBtn.disabled = false;
             } else {
@@ -323,27 +323,30 @@ function loadImage(file, isDecode) {
     reader.readAsDataURL(file);
 }
 
-function updateImagePreview(dataUrl) {
-    const preview = document.getElementById('imagePreview');
-    const previewImg = document.getElementById('previewImg');
+function updateImagePreview(dataUrl, isDecode = false) {
+    const previewId = isDecode ? 'decodeImagePreview' : 'imagePreview';
+    const imgId = isDecode ? 'decodePreviewImg' : 'previewImg';
     
-    if (preview && previewImg) {
-        previewImg.src = dataUrl;
-        preview.hidden = false;
-        
-        // Add click to view full size
-        previewImg.style.cursor = 'zoom-in';
-        previewImg.onclick = () => {
-            const fullSize = window.open();
-            fullSize.document.write(`
-                <style>
-                    body { margin: 0; background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; }
-                    img { max-width: 100%; max-height: 100vh; object-fit: contain; }
-                </style>
-                <img src="${dataUrl}" alt="Full size preview">
-            `);
-        };
-    }
+    const preview = document.getElementById(previewId);
+    const previewImg = document.getElementById(imgId);
+    
+    if (!preview || !previewImg) return;
+
+    previewImg.src = dataUrl;
+    preview.hidden = false;
+    
+    // Add click to view full size
+    previewImg.style.cursor = 'zoom-in';
+    previewImg.onclick = () => {
+        const fullSize = window.open();
+        fullSize.document.write(`
+            <style>
+                body { margin: 0; background: #000; height: 100vh; display: flex; align-items: center; justify-content: center; }
+                img { max-width: 100%; max-height: 100vh; object-fit: contain; }
+            </style>
+            <img src="${dataUrl}" alt="Full size preview">
+        `);
+    };
 }
 
 function setupCanvas(img) {
@@ -477,18 +480,26 @@ function calculateCapacity() {
     return Math.floor((elements.canvas.width * elements.canvas.height * 3) / 8);
 }
 
-function updateImageInfo(file, img) {
-    if (!elements.imageInfo) return;
+function updateImageInfo(file, img, isDecode = false) {
+    const sizeElement = isDecode ? document.getElementById('decodeImageSize') : document.getElementById('imageSize');
+    const dimensionsElement = isDecode ? document.getElementById('decodeImageDimensions') : document.getElementById('imageDimensions');
+    const infoPanel = isDecode ? document.getElementById('decodeImageInfo') : elements.imageInfo;
+
+    if (!sizeElement || !dimensionsElement || !infoPanel) return;
 
     const size = (file.size / 1024).toFixed(2) + ' KB';
     const dimensions = `${img.width} × ${img.height}`;
     const capacity = Math.floor(calculateCapacity() / 8) + ' characters';
 
-    document.getElementById('imageSize').textContent = size;
-    document.getElementById('imageDimensions').textContent = dimensions;
-    document.getElementById('imageCapacity').textContent = capacity;
+    sizeElement.textContent = size;
+    dimensionsElement.textContent = dimensions;
     
-    elements.imageInfo.hidden = false;
+    if (!isDecode) {
+        const capacityElement = document.getElementById('imageCapacity');
+        if (capacityElement) capacityElement.textContent = capacity;
+    }
+
+    infoPanel.hidden = false;
 }
 
 function showToast(message, type = 'info') {

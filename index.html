@@ -199,6 +199,30 @@
                         </div>
                     </section>
 
+                    <section class="upload-section">
+                        <div id="decodeImageInfo" class="info-panel" hidden>
+                            <div class="info-row">
+                                <span>File Size:</span>
+                                <span id="decodeImageSize">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Dimensions:</span>
+                                <span id="decodeImageDimensions">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span>Detected Message Length:</span>
+                                <span id="decodeMessageLength">-</span>
+                            </div>
+                        </div>
+                        
+                        <div id="decodeImagePreview" class="image-preview" hidden>
+                            <h4>Image Preview</h4>
+                            <div class="preview-container">
+                                <img src="" alt="Encoded Preview" id="decodePreviewImg">
+                            </div>
+                        </div>
+                    </section>
+
                     <section class="decode-section">
                         <div class="input-group">
                             <label for="decodeKeyInput">Decryption Key</label>
